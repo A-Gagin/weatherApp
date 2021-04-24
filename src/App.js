@@ -13,7 +13,7 @@ function App() {
       })
       .then((obj) => {
         // also important to check html error codes
-        // 200 means no errors
+        // 200 means no errors!
         if (obj.cod === 200) {
           setWeather(obj);
         } else {

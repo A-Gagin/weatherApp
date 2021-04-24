@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from "react";
+const API_KEY = process.env.REACT_APP_api_key;
 function App() {
+  const [weather, setWeather] = useState(null);
+  useEffect(() => {
+    const url = new URL("https://api.openweathermap.org/data/2.5/weather");
+    url.searchParams.append("appid", API_KEY);
+    url.searchParams.append("zip", 22904);
+    url.searchParams.append("units", "imperial");
+    fetch(url)
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((obj) => {
+        // also important to check html error codes
+        // 200 means no errors
+        if (obj.cod === 200) {
+          setWeather(obj);
+        } else {
+          setWeather(false);
+        }
+      });
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center" }}>
+      <pre>{JSON.stringify(weather, undefined, 4)}</pre>
     </div>
   );
 }
-
 export default App;

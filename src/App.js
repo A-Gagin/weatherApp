@@ -2,12 +2,12 @@
     // Tell current weather
     // Hourly predictions for the next 2 days
     // Week-long daily forecast
+    // User input for zip/city name
+    // Allow for city name instead of zip code -NEXT STEP-
 // Functionality needed:
     // Toggle between hourly and daily weather data
     // Translate unix timestamps to standard date/time
-    // User input for zip/city name
     // Add icons for each weather -NEXT STEP-
-    // Allow for city name instead of zip code -NEXT STEP-
 
 import React, { useState } from "react";
 import Current from "./Current";
@@ -19,6 +19,8 @@ const API_KEY = process.env.REACT_APP_api_key;
 function App() {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
+  const [zip, setZip] = useState(null);
+  const [city, setCity] = useState(null);
 
 
   const makeForecast = (lat, long) => {
@@ -47,7 +49,11 @@ function App() {
   const getWeather = () => {
     const url = new URL("https://api.openweathermap.org/data/2.5/weather");
     url.searchParams.append("appid", API_KEY);
-    url.searchParams.append("zip", 23453); // insert a user zip here...
+    if (city){
+      url.searchParams.append("q", city);
+    } else {
+      url.searchParams.append("zip", zip); // insert a user zip here...
+    }
     url.searchParams.append("units", "imperial");
     fetch(url)
       .then((resp) => {
@@ -67,14 +73,24 @@ function App() {
   };
 
   
-
+  const handleZipSearch = (e) => {
+    setZip(e.target.value);
+  }
+  
+  const handleCitySearch = (e) => {
+    setCity(e.target.value);
+  }
 
 
   return (
     <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
       {/* <pre>{JSON.stringify(forecast, undefined, 4)}</pre> */}
+      <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
       <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
-      <div >
+      <input placeholder = "Search by City Name" onChange = {handleCitySearch}/>
+      {console.log("Zip", zip, "city", city)}
+      <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
+      <div>
         <button>Daily Forecast</button>
         <button>Weekly Forecast</button>
       </div>

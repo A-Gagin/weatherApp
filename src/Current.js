@@ -1,24 +1,45 @@
-import React, {  } from "react";
-// need a state for daily and a state for weekly, for now let's just display both
+import React, { } from "react";
+import GetIcon from "./GetIcon";
+import Typography from "@material-ui/core/Typography";
 
-
-function Current(weather){
-    if (weather.weather != null){ // check to make sure you're not trying to access things that are undefined
+function Current(weather) {
+    if (weather.weather != null) { // check to make sure you're not trying to access things that are undefined
         return (
             <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <h1>Weather for: {weather.weather.name}</h1>
+                <br />
+                <br />
+                <Typography variant="h3" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>Weather for: {weather.weather.name}</Typography>
+                <br />
 
+                <Typography variant="h4">Current Weather</Typography>
+                <br/>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    border: "dotted",
+                    borderColor: "darkslategray",
+                    borderRadius: "10px",
+                    flexWrap: "wrap",
+                    backgroundColor: "darkgray",
+                    padding: "5px",
+                    margin: "4px",
+                    width: "auto"
+                }}>
 
-                <div>
-                    <h2>Current Weather</h2>
+                    
+                    <br />
+                    {GetIcon(weather.weather.weather[0].icon)}
                     {weather.weather.weather[0].description}
-                    <br/>Current temperature: <br/>{weather.weather.main.temp} °F <br/>
-                    Feels like: <br/> {weather.weather.main.feels_like} °F
+                    <br />
+                    {weather.weather.main.temp} °F <br />
+                    feels like:
+                    {" " + weather.weather.main.feels_like} °F
                 </div>
             </div>
-            )
+        )
     }
-    return(
+    return (
         null
     )
 }

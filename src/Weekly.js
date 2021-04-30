@@ -1,7 +1,6 @@
 import React, {} from "react";
 
-function Daily (forecast, displayToggle){
-    console.log("DISPLAY in DAILY", displayToggle);
+function Weekly (forecast, displayToggle){
     if (forecast.forecast != null && displayToggle){
         return (
             <div>
@@ -26,4 +25,4 @@ function Daily (forecast, displayToggle){
     }
 }
 
-export default Daily;
+export default Weekly;

@@ -1,7 +1,6 @@
 import React, {} from "react";
 
 function Hourly (forecast, displayToggle){
-    console.log("DISPLAY in HOURLY", displayToggle);
     if (forecast.forecast != null && displayToggle){
         return (
             <div>

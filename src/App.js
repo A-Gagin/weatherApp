@@ -13,7 +13,7 @@
 import React, { useState } from "react";
 import Current from "./Current";
 import Hourly from "./Hourly";
-import Daily from "./Daily";
+import Weekly from "./Weekly";
 
 const API_KEY = process.env.REACT_APP_api_key;
 
@@ -33,16 +33,13 @@ function App() {
     url.searchParams.append("lat", lat);
     url.searchParams.append("units", "imperial");
     url.searchParams.append("exclude", "current,minutely,alerts");
-    console.log(url);
     fetch(url)
       .then((resp) => {
         return resp.json();
       })
       .then((obj) => {
-        console.log("object", obj);
         if (obj !== []) {
           setForecast(obj);
-          console.log("forecast", forecast)
         } else {
           setForecast(false);
         }
@@ -67,7 +64,6 @@ function App() {
         // 200 means no errors
         if (obj.cod === 200) {
           setWeather(obj);
-          console.log ("lat,lon ", obj.coord.lat, obj.coord.lon)
           makeForecast(obj.coord.lat, obj.coord.lon);
         } else {
           setWeather(false);
@@ -97,38 +93,9 @@ function App() {
   if (hourly){
       return (
         <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        {/* <pre>{JSON.stringify(forecast, undefined, 4)}</pre> */}
         <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
         <input placeholder = "Search by City Name" onChange = {handleCitySearch}/> <br/>
         <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
-  
-        {console.log("Zip", zip, "city", city)}
-  
-        <Current weather={weather} ></Current>
-  
-  
-        <div>
-          <button onClick = {getHourly}>Daily Forecast</button>
-          <button onClick = {getDaily}>Weekly Forecast</button>
-        </div>
-        
-        {console.log (forecast.daily, forecast.hourly)}
-  
-        <Hourly forecast={forecast.hourly} displayToggle = {hourly}></Hourly>
-        {/* <Daily forecast={forecast.daily} displayToggle = {daily}></Daily> */}
-        
-        
-      </div>
-      )
-  } else if (daily){
-      return (
-        <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        {/* <pre>{JSON.stringify(forecast, undefined, 4)}</pre> */}
-        <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
-        <input placeholder = "Search by City Name" onChange = {handleCitySearch}/> <br/>
-        <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
-  
-        {console.log("Zip", zip, "city", city)}
   
         <Current weather={weather} ></Current>
   
@@ -137,11 +104,29 @@ function App() {
           <button onClick = {getHourly}>Hourly Forecast</button>
           <button onClick = {getDaily}>Weekly Forecast</button>
         </div>
-        
-        {console.log (forecast.daily, forecast.hourly)}
   
-        {/* <Hourly forecast={forecast.hourly} displayToggle = {hourly}></Hourly> */}
-        <Daily forecast={forecast.daily} displayToggle = {daily}></Daily>
+        <Hourly forecast={forecast.hourly} displayToggle = {hourly}></Hourly>
+        
+        
+      </div>
+      )
+  } else if (daily){
+      return (
+        <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
+        <input placeholder = "Search by City Name" onChange = {handleCitySearch}/> <br/>
+        <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
+
+  
+        <Current weather={weather} ></Current>
+  
+  
+        <div>
+          <button onClick = {getHourly}>Hourly Forecast</button>
+          <button onClick = {getDaily}>Weekly Forecast</button>
+        </div>
+
+        <Weekly forecast={forecast.daily} displayToggle = {daily}></Weekly>
         
         
       </div>

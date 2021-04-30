@@ -3,8 +3,6 @@ import React, {  } from "react";
 
 
 function Current(weather){
-    console.log ("weather", weather);
-    
     if (weather.weather != null){ // check to make sure you're not trying to access things that are undefined
         return (
             <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>

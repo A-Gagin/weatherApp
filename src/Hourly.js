@@ -1,8 +1,8 @@
 import React, {} from "react";
 
-function Hourly (forecast){
-    console.log("FORECAST in HOURLY", forecast);
-    if (forecast.forecast != null){
+function Hourly (forecast, displayToggle){
+    console.log("DISPLAY in HOURLY", displayToggle);
+    if (forecast.forecast != null && displayToggle){
         return (
             <div>
                 <h2>Hourly Forecast</h2>

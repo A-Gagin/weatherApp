@@ -1,11 +1,11 @@
 import React, {} from "react";
 
-function Daily (forecast){
-    console.log("FORECAST in DAILY", forecast);
-    if (forecast.forecast != null){
+function Daily (forecast, displayToggle){
+    console.log("DISPLAY in DAILY", displayToggle);
+    if (forecast.forecast != null && displayToggle){
         return (
             <div>
-                <h2>Daily Forecast</h2>
+                <h2>Weekly Forecast</h2>
                 <div>
                     {
                         forecast.forecast.map((day) => (

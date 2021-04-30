@@ -4,10 +4,11 @@
     // Week-long daily forecast
     // User input for zip/city name
     // Allow for city name instead of zip code -NEXT STEP-
-// Functionality needed:
     // Toggle between hourly and daily weather data
+// Functionality needed:
     // Translate unix timestamps to standard date/time
     // Add icons for each weather -NEXT STEP-
+    // Make it look pretty lol
 
 import React, { useState } from "react";
 import Current from "./Current";
@@ -21,6 +22,8 @@ function App() {
   const [forecast, setForecast] = useState([]);
   const [zip, setZip] = useState(null);
   const [city, setCity] = useState(null);
+  const [hourly, setHourly] = useState(true);
+  const [daily, setDaily] = useState(false);
 
 
   const makeForecast = (lat, long) => {
@@ -81,28 +84,72 @@ function App() {
     setCity(e.target.value);
   }
 
+  const getHourly = () =>{
+    setHourly(true);
+    setDaily(false);
+  }
 
-  return (
-    <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
-      {/* <pre>{JSON.stringify(forecast, undefined, 4)}</pre> */}
-      <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
-      <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
-      <input placeholder = "Search by City Name" onChange = {handleCitySearch}/>
-      {console.log("Zip", zip, "city", city)}
-      <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
-      <div>
-        <button>Daily Forecast</button>
-        <button>Weekly Forecast</button>
+  const getDaily = () =>{
+    setHourly(false);
+    setDaily(true);
+  }
+
+  if (hourly){
+      return (
+        <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        {/* <pre>{JSON.stringify(forecast, undefined, 4)}</pre> */}
+        <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
+        <input placeholder = "Search by City Name" onChange = {handleCitySearch}/> <br/>
+        <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
+  
+        {console.log("Zip", zip, "city", city)}
+  
+        <Current weather={weather} ></Current>
+  
+  
+        <div>
+          <button onClick = {getHourly}>Daily Forecast</button>
+          <button onClick = {getDaily}>Weekly Forecast</button>
+        </div>
+        
+        {console.log (forecast.daily, forecast.hourly)}
+  
+        <Hourly forecast={forecast.hourly} displayToggle = {hourly}></Hourly>
+        {/* <Daily forecast={forecast.daily} displayToggle = {daily}></Daily> */}
+        
+        
       </div>
-
-      <Current weather={weather} ></Current>
-      {console.log (forecast.daily, forecast.hourly)}
-
-
-
-      <Hourly forecast={forecast.hourly}></Hourly>
-      <Daily forecast={forecast.daily}></Daily>
-    </div>
-  );
+      )
+  } else if (daily){
+      return (
+        <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        {/* <pre>{JSON.stringify(forecast, undefined, 4)}</pre> */}
+        <input placeholder = "Search by Zip Code" onChange = {handleZipSearch}/>
+        <input placeholder = "Search by City Name" onChange = {handleCitySearch}/> <br/>
+        <button style = {{display: "flex", flexDirection: "row", alignItems: "center"}} onClick = {getWeather}>Get Weather</button>
+  
+        {console.log("Zip", zip, "city", city)}
+  
+        <Current weather={weather} ></Current>
+  
+  
+        <div>
+          <button onClick = {getHourly}>Hourly Forecast</button>
+          <button onClick = {getDaily}>Weekly Forecast</button>
+        </div>
+        
+        {console.log (forecast.daily, forecast.hourly)}
+  
+        {/* <Hourly forecast={forecast.hourly} displayToggle = {hourly}></Hourly> */}
+        <Daily forecast={forecast.daily} displayToggle = {daily}></Daily>
+        
+        
+      </div>
+      )
+  } else {
+      return (
+        "Error"
+      )
+  }
 }
 export default App;

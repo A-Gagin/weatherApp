@@ -2,8 +2,8 @@ import React, { } from "react";
 import DateConverter from "./DateConverter"
 import GetIcon from "./GetIcon"
 
-function Weekly({forecast, displayToggle}) {
-    if (forecast.forecast !== null && displayToggle) {
+function Weekly({forecast}) {
+    if (forecast.forecast !== null) {
         return (
             <div style={{ display: "flex", height: "1000px", flexDirection: "column", alignContent: "center" }}>
 

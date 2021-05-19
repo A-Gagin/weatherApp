@@ -3,7 +3,7 @@ import DateConverter from "./DateConverter"
 import GetIcon from "./GetIcon"
 
 function Hourly(forecast, displayToggle) {
-    if (forecast.forecast != null && displayToggle) {
+    if (forecast.forecast !== null && displayToggle) {
         return (
             <div style={{ display: "flex", height: "1000px", flexDirection: "column", alignContent: "center" }}>
 
@@ -24,7 +24,7 @@ function Hourly(forecast, displayToggle) {
             </div>
         );
     }
-    
+
     return null;
     
 }

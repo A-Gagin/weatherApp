@@ -3,7 +3,7 @@ import GetIcon from "./GetIcon";
 import Typography from "@material-ui/core/Typography";
 
 function Current(weather) {
-    if (weather.weather != null) { // check to make sure you're not trying to access things that are undefined
+    if (weather.weather !== null) { // check to make sure you're not trying to access things that are undefined
         return (
             <div style = {{display: "flex", flexDirection: "column", alignItems: "center"}}>
                 <br />

@@ -28,7 +28,6 @@ function App() {
   const [zip, setZip] = useState(null);
   const [city, setCity] = useState(null);
   const [hourly, setHourly] = useState(true);
-  const [daily, setDaily] = useState(false);
 
 
   const makeForecast = (lat, long) => {
@@ -85,17 +84,10 @@ function App() {
     setCity(e.target.value);
   }
 
-  const getHourly = () => {
-    setHourly(true);
-    setDaily(false);
+  const toggleForecast = () => {
+    setHourly(!hourly);
   }
 
-  const getWeekly = () => {
-    setHourly(false);
-    setDaily(true);
-  }
-
-  if (hourly) {
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <br />
@@ -107,61 +99,23 @@ function App() {
         <br />
         <Button variant = "contained" color = "secondary" style={{ display: "flex", flexDirection: "row", alignItems: "center" }} onClick={getWeather}>Get Weather</Button>
 
-        <Current weather={weather} ></Current>
+        <Current weather={weather} />
 
         <br />
         <div>
           <ButtonGroup variant = "text" color="secondary" aria-label="contained primary button group" size="large">
-            <Button onClick={getHourly}>Hourly Forecast</Button>
-            <Button onClick={getWeekly}>Weekly Forecast</Button>
+            <Button onClick={toggleForecast}>Toggle Forecast</Button>
           </ButtonGroup>
         </div>
         <br />
-        <Typography variant="h4">Hourly Forecast</Typography>
+        <Typography variant="h4">{hourly ? "Hourly" : "Weekly"} Forecast</Typography>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Hourly forecast={forecast.hourly} displayToggle={hourly}></Hourly>
+          {hourly ? <Hourly forecast={forecast.hourly}/> : <Weekly forecast={forecast.daily}/>}
         </div>
-
-
-
       </div>
     )
-  } 
-  if (daily) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <br />
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-          <TextField label="Search by Zip Code" variant="outlined" onChange={handleZipSearch} style={{ padding: "10px" }} />
-          <Typography variant="h8"> OR </Typography>
-          <TextField label="Search by City Name" variant="outlined" onChange={handleCitySearch} style={{ padding: "10px" }} />
-        </div>
-        <br />
-        <Button variant = "contained" color = "secondary" style={{ display: "flex", flexDirection: "row", alignItems: "center" }} onClick={getWeather}>Get Weather</Button>
 
-
-        <Current weather={weather} ></Current>
-
-        <br />
-        <div>
-          <ButtonGroup variant = "text" color="secondary" aria-label="contained primary button group" size="large">
-            <Button onClick={getHourly}>Hourly Forecast</Button>
-            <Button onClick={getWeekly}>Weekly Forecast</Button>
-          </ButtonGroup>
-        </div>
-        <br />
-        <Typography variant="h4">Weekly Forecast</Typography>
-        <div style={{ display: "flex", flexDirection: "column", alignContent: "center" }}>
-          <Weekly forecast={forecast.daily} displayToggle={daily}></Weekly>
-        </div>
-
-
-      </div>
-
-    )
-  }
-
-    return ("Error");
+  
  
 }
 export default App;

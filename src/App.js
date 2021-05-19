@@ -126,7 +126,8 @@ function App() {
 
       </div>
     )
-  } else if (daily) {
+  } 
+  if (daily) {
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <br />
@@ -158,10 +159,9 @@ function App() {
       </div>
 
     )
-  } else {
-    return (
-      "Error"
-    )
   }
+
+    return ("Error");
+ 
 }
 export default App;

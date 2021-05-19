@@ -23,9 +23,10 @@ function Weekly(forecast, displayToggle) {
                 </div>
             </div>
         );
-    } else {
-        return null;
     }
+    
+    return null;
+    
 }
 
 export default Weekly;

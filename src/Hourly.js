@@ -23,9 +23,10 @@ function Hourly(forecast, displayToggle) {
                 </div>
             </div>
         );
-    } else {
-        return null;
     }
+    
+    return null;
+    
 }
 
 export default Hourly;

@@ -20,7 +20,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
 
-const API_KEY = process.env.REACT_APP_api_key;
+const API_KEY = process.env.REACT_APP_weather_api_key;
 
 function App() {
   const [weather, setWeather] = useState(null);
